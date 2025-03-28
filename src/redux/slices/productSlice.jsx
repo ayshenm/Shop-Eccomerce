@@ -7,13 +7,31 @@ const initialState = {
   selectedProduct: {},
 };
 
+// const BASE_URL = "https://fakestoreapi.com";
+
+// export const getAllProducts = createAsyncThunk("getAllProducts", async () => {
+//   const response = await axios.get(`${BASE_URL}/products`);
+//   return response.data;
+// });
+// console.log(data);
+
 const BASE_URL = "https://fakestoreapi.com";
 
-export const getAllProducts = createAsyncThunk("getAllProducts", async () => {
-  const response = await axios.get(`${BASE_URL}/products`);
-  return response.data;
-});
+// export const getAllProducts = createAsyncThunk("getAllProducts", async () => {
+//   const response = await axios.get(`${BASE_URL}/products`);
+//   return response.data;
+// });
 
+export const getAllProducts = createAsyncThunk("getAllProducts", async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/products`);
+    console.log('API Response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error("API xətası:", error);
+    throw error; 
+  }
+});
 
 
 export const productSlice = createSlice({
@@ -31,5 +49,5 @@ export const productSlice = createSlice({
   },
 });
 
-export const {  } = productSlice.actions;
+export const {} = productSlice.actions;
 export default productSlice.reducer;
