@@ -3,9 +3,11 @@ import { CiShoppingBasket } from "react-icons/ci";
 import { CiLight } from "react-icons/ci";
 import { CiDark } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [theme, setTheme] = useState(false);
+  const navigate = useNavigate();
 
   const changeTheme = () => {
     const root = document.getElementById("root");
@@ -25,7 +27,7 @@ const Header = () => {
 
   return (
     <div className="flex justify-between items-center p-5">
-      <div className="flex items-center gap-0.5 p-3 cursor-pointer">
+      <div onClick={() => navigate("/")} className="flex items-center gap-0.5 p-3 cursor-pointer">
         <img className="w-10 h-10" src="./src/images/logo.png" alt="header_logo" />
         <p className="font-bold text-2xl">Shopping Mall</p>
       </div>

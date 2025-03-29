@@ -1,10 +1,11 @@
 import React from "react";
+import {useNavigate} from "react-router-dom"
 
 const Product = ({ product }) => {
-  console.log("Məhsul məlumatı:", product);
+  // console.log("Məhsul məlumatı:", product);
 
   const { id, price, image, title } = product;
-
+   const navigate = useNavigate()
   return (
     <div
       id={id}
@@ -19,7 +20,7 @@ const Product = ({ product }) => {
         <p className=" text-lg font-bold text-gray-700">Price: {price}₼</p>
       </div>
       <div className="bg-red-500 justify-start cursor-pointer rounded-full text-white px-3 py-2">
-        <button className="cursor-pointer h-1.5">Show More</button>
+        <button onClick={() => navigate("/product-details/" + id )} className="cursor-pointer h-1.5">Show More</button>
       </div>
     </div>
   );
