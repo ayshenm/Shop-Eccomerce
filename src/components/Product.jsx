@@ -1,28 +1,58 @@
 import React from "react";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import CardActionArea from "@mui/material/CardActionArea";
+import CardActions from "@mui/material/CardActions";
+import Button from "@mui/material/Button";
 
 const Product = ({ product }) => {
   // console.log("Məhsul məlumatı:", product);
 
   const { id, price, image, title } = product;
-   const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
-    <div
-      id={id}
-      className="flex flex-col items-center p-4 border border-amber-50 rounded-lg shadow-lg w-70 h-90 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-gray-300">
-      <div className="flex justify-center items-center w-40 h-40 mb-2">
-        <img className="w-full h-full object-fill rounded-md" src={image} alt={title} />
-      </div>
-
-      <div className="text-center flex flex-col justify-between h-50">
-        <h2 className="text-lg font-semibold text-gray-800 ">{title}</h2>
-        {/* <p className="text-sm text-gray-500 mb-4">{description}</p> */}
-        <p className=" text-lg font-bold text-gray-700">Price: {price}₼</p>
-      </div>
-      <div className="bg-red-500 justify-start cursor-pointer rounded-full text-white px-3 py-2">
-        <button onClick={() => navigate("/product-details/" + id )} className="cursor-pointer h-1.5">Show More</button>
-      </div>
-    </div>
+    <Card className="p-3" id={id} sx={{ maxWidth: 350 }}>
+      <CardActionArea>
+        <div
+          style={{
+            width: "100%",
+            height: 200,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}>
+          <CardMedia
+            component="img"
+            image={image}
+            alt={title}
+            sx={{
+              maxWidth: "100%",
+              maxHeight: "100%", 
+              objectFit: "contain",  
+            }}
+          />
+        </div>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {title}
+          </Typography>
+          <Typography variant="body2" sx={{ color: "text.secondary" }}>
+            Price: {price}₼
+          </Typography>
+          <CardActions>
+            <Button
+              onClick={() => navigate("/product-details/" + id)}
+              size="small"
+              color="secondary">
+              Show More
+            </Button>
+          </CardActions>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   );
 };
 
