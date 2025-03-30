@@ -5,15 +5,16 @@ import { setSelectedProduct } from "../redux/slices/productSlice";
 import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import { SlBasket } from "react-icons/sl";
+import { addToBasket, calculteBasket } from "../redux/slices/basketSlice";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { products, selectedProduct } = useSelector((store) => store.product);
   console.log("gg", products);
-
+  const dispatch = useDispatch();
   const { title, price, image, description } = selectedProduct;
-
   const [count, setCount] = useState(0);
+
   const incriment = () => {
     setCount(count + 1);
   };
@@ -23,7 +24,20 @@ const ProductDetails = () => {
       setCount(count - 1);
     }
   };
-  const dispatch = useDispatch();
+
+  const addBasket = () => {
+    console.log("dikk");
+    const payload = {
+      id,
+      price,
+      image,
+      title,
+      description,
+      count,
+    };
+    dispatch(addToBasket(payload));
+    dispatch(calculteBasket());
+  };
 
   useEffect(() => {
     getProductById();
@@ -52,7 +66,12 @@ const ProductDetails = () => {
             <CiCirclePlus onClick={() => incriment()} size={25} />
             {count} <CiCircleMinus onClick={() => decrement()} size={25} />
           </div>
-          <button className="cursor-pointer border rounded-2xl px-2 py-3 bg-red-900 hover:bg-red-500 transition-all duration-150 text-white font-bold ">
+          <button
+            onClick={addBasket}
+            disabled={count === 0}
+            className={`cursor-pointer border rounded-2xl px-2 py-3 transition-all duration-150 text-white font-bold
+             ${count === 0 ? "bg-gray-400 cursor-not-allowed" : "bg-red-900 hover:bg-red-500"}
+            `}>
             Add to Bascket
           </button>
         </div>

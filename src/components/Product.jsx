@@ -42,7 +42,8 @@ const Product = ({ product }) => {
           <Typography variant="body2" sx={{ color: "text.secondary" }}>
             Price: {price}₼
           </Typography>
-          <CardActions>
+        </CardContent>
+        <CardActions>
             <Button
               onClick={() => navigate("/product-details/" + id)}
               size="small"
@@ -50,7 +51,6 @@ const Product = ({ product }) => {
               Show More
             </Button>
           </CardActions>
-        </CardContent>
       </CardActionArea>
     </Card>
   );

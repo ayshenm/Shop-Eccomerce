@@ -4,10 +4,17 @@ import { CiLight } from "react-icons/ci";
 import { CiDark } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
+import Badge from "@mui/material/Badge";
+import { useDispatch, useSelector } from "react-redux";
+import { setDrawer } from "../redux/slices/basketSlice";
+
 
 const Header = () => {
   const [theme, setTheme] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+
+  const { products } = useSelector((store) => store.basket);
 
   const changeTheme = () => {
     const root = document.getElementById("root");
@@ -38,7 +45,6 @@ const Header = () => {
       </div>
 
       <div className="flex items-center gap-1 cursor-pointer">
-        <CiShoppingBasket size={30} />
         <div>
           {theme ? (
             <CiDark size={30} onClick={changeTheme} />
@@ -46,6 +52,11 @@ const Header = () => {
             <CiLight size={30} onClick={changeTheme} />
           )}
         </div>
+
+        <Badge onClick={() => dispatch(setDrawer()) } badgeContent={products.length} color="error">
+          <CiShoppingBasket size={30} />
+        </Badge>
+      
       </div>
     </div>
   );
