@@ -6,7 +6,7 @@ import ProductConfiq from "./config/RouterConfiq";
 import Loading from "./components/Loading";
 import Drawer from "@mui/material/Drawer";
 import { useDispatch, useSelector } from "react-redux";
-import { calculteBasket, setDrawer } from "./redux/slices/basketSlice";
+import { calculteBasket, removeFromBasket, setDrawer } from "./redux/slices/basketSlice";
 import { useEffect } from "react";
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
                     <br /> <span> count:{product.count}</span>
                   </p>
                   <p className="text-red-600 font-bold">Price: {product.price}AZN</p>
-                  <button className="bg-green-900 text-white cursor-pointer">clear</button>
+                  <button onClick={() => dispatch(removeFromBasket(product.id))} className="bg-green-900 text-white cursor-pointer">clear</button>
                 </div>
               </div>
             </div>

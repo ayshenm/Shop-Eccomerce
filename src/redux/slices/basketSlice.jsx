@@ -49,8 +49,16 @@ export const basketSlice = createSlice({
         state.products.reduce((acc, product) => acc + product.price * product.count, 0)
       ).toFixed(2);
     },
+
+    removeFromBasket: (state, action) => {
+        // Məhsulu Redux state-dən sil
+        state.products = state.products.filter((product) => product.id !== action.payload);
+        // localStorage-i yenilə
+        writeToBasketToStorage(state.products);
+        state.totalAmount = state.products.reduce((acc, product) => acc + product.price * product.count, 0).toFixed(2);
+      },
   },
 });
 
-export const { addToBasket, setDrawer, calculteBasket } = basketSlice.actions;
+export const { addToBasket, setDrawer, calculteBasket,removeFromBasket} = basketSlice.actions;
 export default basketSlice.reducer;
