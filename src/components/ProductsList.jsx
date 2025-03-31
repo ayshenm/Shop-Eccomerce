@@ -1,28 +1,22 @@
-import React, { useEffect } from 'react';
-import{ useDispatch,useSelector} from "react-redux"
-import { getAllProducts } from '../redux/slices/productSlice';
-import Product from './Product';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts } from "../redux/slices/productSlice";
+import Product from "./Product";
+import { Grid } from "@mui/material";
 
 const ProductsList = () => {
+  const dispatch = useDispatch();
+  const { products } = useSelector((store) => store.product);
 
-    const dispatch = useDispatch();
-    const {products} = useSelector((store) => store.product);
-    
-
-    useEffect(() => {
-        dispatch(getAllProducts())
-
-    },[])
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, []);
 
   return (
-    <div className='flex gap-2 flex-wrap mt-5 pb-5'> 
-      {
-       products && products.map((product)=>(
-        <Product key={product.id} product={product}/>
-       ))
-      }
-    </div>
-  )
-}
+    <Grid container spacing={2}>
+      {products && products.map((product) => <Product key={product.id} product={product} />)}
+    </Grid>
+  );
+};
 
-export default ProductsList
+export default ProductsList;

@@ -6,6 +6,7 @@ import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import { SlBasket } from "react-icons/sl";
 import { addToBasket, calculteBasket } from "../redux/slices/basketSlice";
+import { Alert } from "@mui/material";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -14,6 +15,7 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const { title, price, image, description } = selectedProduct;
   const [count, setCount] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
 
   const incriment = () => {
     setCount(count + 1);
@@ -37,6 +39,10 @@ const ProductDetails = () => {
     };
     dispatch(addToBasket(payload));
     dispatch(calculteBasket());
+    setShowAlert(true);
+    setTimeout(() => {
+      setShowAlert(false); // 3 saniyə sonra alert-i gizlət
+    }, 3000);
   };
 
   useEffect(() => {
@@ -76,6 +82,11 @@ const ProductDetails = () => {
           </button>
         </div>
       </div>
+      {showAlert && (
+        <Alert variant="outlined" severity="success" className="absolute top-0 left-1/2 transform -translate-x-1/2 mt-4 w-1/3">
+          Məhsul səbətə əlavə edildi! 🎉
+        </Alert>
+      )}
     </div>
   );
 };

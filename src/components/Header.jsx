@@ -8,28 +8,26 @@ import Badge from "@mui/material/Badge";
 import { useDispatch, useSelector } from "react-redux";
 import { setDrawer } from "../redux/slices/basketSlice";
 
-
 const Header = () => {
   const [theme, setTheme] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const { products } = useSelector((store) => store.basket);
 
   const changeTheme = () => {
     const root = document.getElementById("root");
-    setTheme(!theme);
-    // if(theme){
-    //     root.style.backgroundColor="#000";
-    //     root.style.color="#fff";
-
-    // }else{
-    //     root.style.backgroundColor="fff";
-    //     root.style.color="#000";
-    // }
-
-    root.style.backgroundColor = theme ? "#000" : "#fff";
-    root.style.color = theme ? "#fff" : "#000";
+    setTheme((prevTheme) => {
+      const newTheme = !prevTheme;
+      if (newTheme) {
+        root.style.backgroundColor = "#000";
+        root.style.color = "#fff";
+      } else {
+        root.style.backgroundColor = "#fff";
+        root.style.color = "#000";
+      }
+      return newTheme;
+    });
   };
 
   return (
@@ -53,10 +51,9 @@ const Header = () => {
           )}
         </div>
 
-        <Badge onClick={() => dispatch(setDrawer()) } badgeContent={products.length} color="error">
+        <Badge onClick={() => dispatch(setDrawer())} badgeContent={products.length} color="error">
           <CiShoppingBasket size={30} />
         </Badge>
-      
       </div>
     </div>
   );

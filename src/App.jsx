@@ -11,6 +11,7 @@ import { useEffect } from "react";
 
 function App() {
   const { products, drawer, totalAmount } = useSelector((store) => store.basket);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,7 +39,11 @@ function App() {
                     <br /> <span> count:{product.count}</span>
                   </p>
                   <p className="text-red-600 font-bold">Price: {product.price}AZN</p>
-                  <button onClick={() => dispatch(removeFromBasket(product.id))} className="bg-green-900 text-white cursor-pointer">clear</button>
+                  <button
+                    onClick={() => dispatch(removeFromBasket(product.id))}
+                    className="bg-green-900 text-white cursor-pointer">
+                    clear
+                  </button>
                 </div>
               </div>
             </div>

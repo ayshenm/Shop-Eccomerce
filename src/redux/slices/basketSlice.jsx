@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { productSlice } from "./productSlice";
 
 const getBasketFromStorage = () => {
   if (localStorage.getItem("basket")) {
@@ -10,7 +9,7 @@ const getBasketFromStorage = () => {
 };
 
 const initialState = {
-  products: getBasketFromStorage(),
+  products: getBasketFromStorage(),  
   drawer: false,
   totalAmount: 0,
 };
@@ -44,21 +43,23 @@ export const basketSlice = createSlice({
     },
 
     calculteBasket: (state) => {
-        state.totalAmount =0;
+      state.totalAmount = 0;
       state.totalAmount = parseFloat(
         state.products.reduce((acc, product) => acc + product.price * product.count, 0)
       ).toFixed(2);
     },
 
     removeFromBasket: (state, action) => {
-        // Məhsulu Redux state-dən sil
-        state.products = state.products.filter((product) => product.id !== action.payload);
-        // localStorage-i yenilə
-        writeToBasketToStorage(state.products);
-        state.totalAmount = state.products.reduce((acc, product) => acc + product.price * product.count, 0).toFixed(2);
-      },
+      // Məhsulu Redux state-dən sil
+      state.products = state.products.filter((product) => product.id !== action.payload);
+      // localStorage-i yenilə
+      writeToBasketToStorage(state.products);
+      state.totalAmount = state.products
+        .reduce((acc, product) => acc + product.price * product.count, 0)
+        .toFixed(2);
+    },
   },
 });
 
-export const { addToBasket, setDrawer, calculteBasket,removeFromBasket} = basketSlice.actions;
+export const { addToBasket, setDrawer, calculteBasket, removeFromBasket } = basketSlice.actions;
 export default basketSlice.reducer;
