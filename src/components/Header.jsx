@@ -31,28 +31,41 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between items-center p-5">
-      <div onClick={() => navigate("/")} className="flex items-center gap-0.5 p-3 cursor-pointer">
-        <img className="w-10 h-10" src="./src/images/logo.png" alt="header_logo" />
-        <p className="font-bold text-2xl">Shopping Mall</p>
+   
+    <div className="flex justify-between items-center p-4 md:p-5 shadow-md dark:bg-gray-900 transition-all mb-10">
+      {/* Logo */}
+      <div onClick={() => navigate("/")} className="flex items-center gap-2 p-2 cursor-pointer">
+        {/* <img className="w-8 h-8 md:w-10 md:h-10" src="./src/images/logo.png" alt="header_logo" /> */}
+        <p className="font-bold text-xl md:text-2xl text-gray-800 dark:text-white">Shopping Mall</p>
       </div>
 
-      <div className="flex items-center">
-        <CiSearch />
-        <input className="border-b-1 border-indigo-500 p-2.5" type="text" placeholder="Search..." />
+      {/* Search - Mobilde gizli, tabletdən etibarən görünsün */}
+      <div className="hidden sm:flex items-center border-b border-indigo-500 p-2">
+        <CiSearch className="text-gray-500 dark:text-gray-400" />
+        <input
+          className="outline-none bg-transparent p-1 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+          type="text"
+          placeholder="Search..."
+        />
       </div>
 
-      <div className="flex items-center gap-1 cursor-pointer">
-        <div>
-          {theme ? (
-            <CiDark size={30} onClick={changeTheme} />
-          ) : (
-            <CiLight size={30} onClick={changeTheme} />
-          )}
+      {/* Sağ tərəf */}
+      <div className="flex items-center gap-3 md:gap-4">
+        {/* Mobil axtarış ikonu */}
+        <CiSearch className="block sm:hidden text-2xl cursor-pointer text-gray-700 dark:text-white" />
+
+        {/* Tema dəyişmə */}
+        <div onClick={changeTheme} className="cursor-pointer text-gray-700 dark:text-white">
+          {theme ? <CiDark size={28} /> : <CiLight size={28} />}
         </div>
 
-        <Badge onClick={() => dispatch(setDrawer())} badgeContent={products.length} color="error">
-          <CiShoppingBasket size={30} />
+        {/* Səbət */}
+        <Badge
+          onClick={() => dispatch(setDrawer())}
+          badgeContent={products.length}
+          color="error"
+          className="cursor-pointer">
+          <CiShoppingBasket size={30} className="text-gray-700 dark:text-white" />
         </Badge>
       </div>
     </div>
